@@ -36,7 +36,7 @@ SELECT LastName, FirstName, Phone from CUSTOMER;
 SELECT LastName, FirstName, Phone from CUSTOMER WHERE FirstName = "Nikki";
 
 -- E 
-SELECT LastName, FirstName, Phone, DateIn, DateOut from INVOICE WHERE FirstName = "Nikki";
+SELECT LastName, FirstName, Phone, I.DateIn, I.DateOut from CUSTOMER c, INVOICE I WHERE c.FirstName = "Nikki";
 
 -- F
 SELECT LastName, FirstName, Phone, DateIn, DateOut
@@ -107,7 +107,7 @@ ORDER BY C.LastName ASC, C.FirstName DESC;
 
 -- R
 SELECT LastName, FirstName, Phone 
-FROM CUSTOMER 
+FROM CUSTOMER I
 WHERE CustomerID IN (
     SELECT I.CustomerID 
     FROM INVOICE_ITEM I 
