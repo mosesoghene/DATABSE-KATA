@@ -9,8 +9,7 @@ LIMIT 5;
 CREATE TABLE IF NOT EXISTS Frequent_Riders AS
 SELECT R.RiderID, R.Name, COUNT(Ri.RideID) AS RideCount
 FROM Riders R
-JOIN Rides Ri ON r.RiderID = ri.RiderID
-WHERE Ri.RideDate >= NOW() - INTERVAL 30 DAY
+JOIN Rides Ri ON R.RiderID = Ri.RiderID
 GROUP BY R.RiderID, R.Name
 HAVING RideCount > 5;
 
@@ -18,12 +17,11 @@ HAVING RideCount > 5;
 CREATE TABLE IF NOT EXISTS Total_Revenue_Last_Month AS
 SELECT SUM(p.Amount) AS TotalRevenue
 FROM Payments p
-JOIN Rides Ri ON p.RideID = ri.RideID
-WHERE ri.RideDate >= NOW() - INTERVAL 1 MONTH;
+JOIN Rides Ri ON p.RideID = Ri.RideID;
 
 -- 4. Area in Lagos with the most rides
 CREATE TABLE IF NOT EXISTS Area_With_Most_Rides AS
-SELECT R.City, COUNT(ri.RideID) AS RideCount
+SELECT R.City, COUNT(Ri.RideID) AS RideCount
 FROM Riders R
 JOIN Rides Ri ON R.RiderID = Ri.RiderID
 GROUP BY R.City
